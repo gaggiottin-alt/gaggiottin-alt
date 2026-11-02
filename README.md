@@ -1,16 +1,14 @@
 ## Hi there 👋
 
-<!--
-**gaggiottin-alt/gaggiottin-alt** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
 
-Here are some ideas to get you started:
+## Education
 
-- 🔭 I’m currently working on ...
-- 🌱 I’m currently learning ...
-- 👯 I’m looking to collaborate on ...
-- 🤔 I’m looking for help with ...
-- 💬 Ask me about ...
-- 📫 How to reach me: ...
-- 😄 Pronouns: ...
-- ⚡ Fun fact: ...
--->
+**Merrimack College** — B.S. in Data Science  
+Expected Graduation: December 2026 | GPA: 3.456
+
+**Academic Honors:** Dean's List, President's List
+
+**Relevant Coursework:** Data Analysis for Business, Creating Information Graphics, Data Mining and Predictive Analytics I & II, Optimization, Modeling and Simulation, Statistics, Calculus I, and Geographic Information Systems (GIS).
+
+**Directed Study:** Machine Learning Research under Dr. Don Roosan.
+  
