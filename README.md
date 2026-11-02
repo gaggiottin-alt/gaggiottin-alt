@@ -197,6 +197,7 @@ The project examined how movie characteristics relate to financial performance a
 </td>
 </tr>
 
+
 <tr>
 <td width="260" valign="top">
 <img src="amazon-gis.png" width="240" alt="Amazon Rainforest GIS Conservation Project">
