@@ -91,149 +91,18 @@ The project also investigates Major Depressive Episode (MDE) as a related outcom
 **Project Goal:** Identify important predictors of CUD and MDE and evaluate the usefulness of machine learning methods for analyzing large-scale public health survey data.
 
 ---
+| Project preview | Analysis and project links |
+| :--- | :--- |
+| <a href="projects/cud-capstone.md"><img src="images/cud-capstone.png" width="290" alt="Cannabis Use Disorder Prediction — Capstone preview"></a> | **[Cannabis Use Disorder Prediction — Capstone](projects/cud-capstone.md)**<br>**R · RStudio · NSDUH · Statistical Analysis**<br>Analyzing 232,441 NSDUH records to study cannabis use disorder and major depressive episodes; chi-square tests and Cramér’s V are part of the exploratory work. Classification modeling is in progress.<br><br>[R analysis draft](projects/cud-capstone-draft.Rmd) |
+| <a href="projects/customer-segmentation.md"><img src="images/customer-segmentation.png" width="290" alt="Customer Shopping Behavior & Segmentation preview"></a> | **[Customer Shopping Behavior & Segmentation](projects/customer-segmentation.md)**<br>**R · K-Means · Hierarchical Clustering · DBSCAN**<br>Explored 3,900 customer records and compared clustering techniques. A four-cluster K-Means analysis showed different purchasing patterns, including average spending of $81.80 versus $37.80.<br><br>[Project summary](projects/customer-segmentation.md) |
+| <a href="projects/netflix-association.md"><img src="images/netflix-association.png" width="290" alt="Netflix Genre Association Analysis preview"></a> | **[Netflix Genre Association Analysis](projects/netflix-association.md)**<br>**R · Apriori · Association Rules**<br>Analyzed 8,807 Netflix titles using support, confidence, and lift to uncover genre associations. Korean TV and romantic TV show labels showed a strong association (lift ~12.1).<br><br>[Project summary](projects/netflix-association.md) |
+| <a href="projects/seattle-rainfall.md"><img src="images/seattle-rainfall.png" width="290" alt="Seattle Rainfall Prediction preview"></a> | **[Seattle Rainfall Prediction](projects/seattle-rainfall.md)**<br>**Python · scikit-learn · Bagging · Random Forest**<br>Compared ensemble classifiers using out-of-bag hyperparameter tuning and a held-out 2015 test set. Random Forest reached 78.6% test accuracy.<br><br>[Open notebook](projects/seattle-rainfall.ipynb) |
+| <a href="projects/quantum-directed-study.md"><img src="images/quantum-molecular.png" width="290" alt="Molecular Gap Prediction — Directed Study preview"></a> | **[Molecular Gap Prediction — Directed Study](projects/quantum-directed-study.md)**<br>**Python · QM9 · GNNs · Quantum-Classical Models**<br>Trained a classical GNN for HOMO–LUMO gap prediction (validation MSE 0.2981), tested a hybrid tutorial, and explored DimeNet. DimeNet development was still underway.<br><br>[Research summary](projects/quantum-directed-study.md) |
+| <a href="projects/movie-analysis.md"><img src="images/movie-analysis.png" width="290" alt="Movie Performance Analysis preview"></a> | **[Movie Performance Analysis](projects/movie-analysis.md)**<br>**Python · EDA · Data Visualization**<br>Explored 85,000+ movie records to investigate budget, revenue, genre, runtime, and audience-engagement patterns over approximately 25 years.<br><br>[Project summary](projects/movie-analysis.md) |
+| <a href="projects/amazon-gis.md"><img src="images/amazon-gis.png" width="290" alt="Amazon Conservation GIS Module preview"></a> | **[Amazon Conservation GIS Module](projects/amazon-gis.md)**<br>**ArcGIS Online · GIS · Spatial Analysis**<br>Designed an instructional activity exploring Indigenous territories and protected areas, with proposed buffer and intersect analyses. Map analysis is in progress.<br><br>[Module description](projects/amazon-gis.md) |
 
-### 2. Customer Shopping Behavior and Segmentation
 
-**Technologies:** R, RStudio, ggplot2, K-Means, Hierarchical Clustering, DBSCAN
 
-This project analyzes customer shopping behavior using a dataset containing 3,900 customer records and 16 variables.
-
-The objective was to explore customer purchasing patterns and identify meaningful groups based on age, purchase amount, review ratings, and previous purchases.
-
-I performed exploratory data analysis, normalized numerical variables, and applied multiple unsupervised machine learning methods to compare customer segmentation approaches.
-
-**Key Methods:**
-- Data cleaning and preprocessing
-- Min-max normalization
-- Descriptive statistics and data visualization
-- K-Means clustering
-- Silhouette analysis
-- Hierarchical clustering
-- DBSCAN
-
-**Key Finding:** K-Means clustering revealed groups with different purchasing characteristics, including clusters with average purchase amounts of approximately $81.80 and $37.80.
-
-**Business Application:** Customer segmentation can support marketing strategies, customer behavior analysis, and business decision-making.
-
----
-
-### 3. Netflix Genre Association Analysis
-
-**Technologies:** R, RStudio, Apriori Algorithm, Association Rule Mining, Data Visualization
-
-This project analyzes 8,807 Netflix titles to investigate whether certain genres frequently appear together.
-
-Using the Apriori algorithm, I identified association rules between genres and evaluated the strength of these relationships using support, confidence, and lift.
-
-The analysis focused on identifying meaningful patterns in Netflix's catalog and considering how these patterns could inform content organization and recommendations.
-
-**Key Methods:**
-- Data cleaning and transformation
-- Transaction data preparation
-- Apriori association rule mining
-- Support, confidence, and lift analysis
-- Data visualization
-
-**Key Findings:**
-- International Korean TV Shows showed a strong association with Romantic TV Shows, with a lift of approximately 12.1.
-- Horror Movies were strongly associated with Thrillers, with a lift of approximately 5.39.
-- TV Mysteries showed a strong association with TV Dramas.
-
-**Business Application:** These findings could help inform content categorization and the development of more targeted browsing categories.
-
----
-
-### 4. Seattle Rainfall Prediction
-
-**Technologies:** Python, Pandas, scikit-learn, Matplotlib, Machine Learning
-
-This project uses historical Seattle weather data to investigate whether rainfall can be predicted using meteorological and seasonal features.
-
-I developed and compared Bagging and Random Forest classification models, using a chronological training and testing split to evaluate performance on previously unseen weather observations.
-
-Hyperparameter combinations were evaluated using a manual grid search with Out-of-Bag (OOB) accuracy.
-
-**Key Methods:**
-- Exploratory data analysis
-- Feature engineering
-- Bagging classification
-- Random Forest classification
-- Hyperparameter tuning
-- Out-of-Bag evaluation
-- Confusion matrices and classification metrics
-
-**Key Finding:** The weather-informed Random Forest achieved 78.6% test accuracy, outperforming a calendar-only model.
-
-**Project Goal:** Evaluate how weather conditions and seasonal patterns contribute to predicting rainy days.
-
----
-
-### 5. Quantum Machine Learning for Molecular Property Prediction
-
-**Directed Study — Dr. Don Roosan**
-
-**Technologies:** Python, Google Colab, Graph Neural Networks, Quantum Machine Learning, QM9
-
-This directed study investigated classical, hybrid quantum-classical, and geometry-aware neural network approaches for predicting HOMO-LUMO molecular energy gaps.
-
-The project used the QM9 molecular dataset to explore how machine learning architectures can learn relationships between molecular structures and quantum chemical properties.
-
-I implemented a classical Graph Neural Network (GNN), evaluated a hybrid quantum-classical tutorial model, and researched the DimeNet architecture for incorporating three-dimensional molecular geometry.
-
-**Key Methods:**
-- Molecular dataset preparation
-- Graph Neural Networks
-- Mean Squared Error evaluation
-- Hybrid quantum-classical learning
-- DimeNet architecture research
-
-**Key Findings:**
-- The classical GNN achieved a validation MSE of 0.2981 after 20 training epochs.
-- The hybrid tutorial model reached a training MSE of 0.2924 after 10 epochs.
-- DimeNet was identified as a promising architecture for capturing molecular geometry through distances and angular relationships.
-
-**Project Status:** Classical and hybrid model experiments completed; DimeNet implementation and debugging remained in progress at the conclusion of the directed study.
-
----
-
-### 6. Movie Performance Analysis
-
-**Technologies:** Python, Data Cleaning, Exploratory Data Analysis, Data Visualization
-
-This project examined more than 85,000 movie records to investigate relationships between production budgets, revenue, genres, runtimes, and audience engagement.
-
-I used Python to clean and explore the dataset, generating visualizations to identify patterns in movie performance over approximately 25 years.
-
-**Key Methods:**
-- Data cleaning
-- Exploratory data analysis
-- Scatter plots
-- Bar charts
-- Boxplots
-- Trend analysis
-
-**Project Goal:** Identify relationships between movie characteristics and financial performance through data exploration and visualization.
-
----
-
-### 7. Amazon Rainforest Conservation GIS Module
-
-**Technologies:** ArcGIS Online, GIS, Spatial Analysis, Mapping
-
-**Status:** In Progress
-
-This GIS project explores the spatial relationships between Indigenous territories, protected conservation areas, and the Amazon rainforest.
-
-The project uses geographic datasets to examine conservation boundaries and investigate areas of overlap and proximity.
-
-**Planned Methods:**
-- Geographic layer integration
-- Satellite imagery basemaps
-- Buffer analysis
-- Spatial overlay and intersection
-- Geographic interpretation
-
-**Project Goal:** Explore how GIS techniques can support conservation research and help identify areas for further investigation into the protection of Indigenous territories and rainforest ecosystems.
 
 ---
 
