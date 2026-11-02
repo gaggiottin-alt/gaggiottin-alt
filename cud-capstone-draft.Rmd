@@ -1,0 +1,882 @@
+---
+title: "analysis2"
+author: "Noemi Gaggiotti"
+date: "2026-10-08"
+output:
+  word_document: default
+  html_document: default
+---
+```{r}
+```
+
+
+```{r}
+```
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+# The NSDUH data file is not included in this public repository.
+# Place the authorized NSDUH_2021_2024.Rdata file locally before running.
+load("NSDUH_2021_2024.Rdata")
+```
+```{r}
+ls()
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+
+library(dplyr)
+library(ggplot2)
+
+# Outcome variable
+outcome <- "IRPYUD5MRJ"
+
+# Candidate predictors
+predictors <- c(
+  "CATAG3",
+  "IRSEX",
+  "NEWRACE2",
+  "IRMARIT",
+  "INCOME",
+  "POVERTY3",
+  "IREDUHIGHST2",
+  "IRWRKSTAT",
+  "GOVTPROG",
+  "IRINSUR4",
+  "HEALTH",
+  "COUTYP4",
+  "ALCMON",
+  "IRALCBNG30D",
+  "CIGMON",
+  "DIFGETMRJ",
+  "RSKMRJWK",
+  "IRAMDEYR",
+  "IRPYUD5ALC",
+  "YEAR"
+)
+
+# Check variable availability
+required_vars <- c(outcome, predictors)
+
+missing_vars <- setdiff(
+  required_vars,
+  names(NSDUH_2021_2024)
+)
+
+print(missing_vars)
+
+# Select only variables that exist
+available_vars <- intersect(
+  required_vars,
+  names(NSDUH_2021_2024)
+)
+
+cud_data <- NSDUH_2021_2024 %>%
+  select(all_of(available_vars))
+
+# Inspect dataset
+dim(cud_data)
+str(cud_data)
+
+# Outcome distribution
+if (outcome %in% names(cud_data)) {
+
+  print(table(
+    cud_data[[outcome]],
+    useNA = "ifany"
+  ))
+
+  print(round(
+    prop.table(table(cud_data[[outcome]])) * 100,
+    2
+  ))
+
+  # Visualize class imbalance
+  ggplot(
+    cud_data,
+    aes(x = factor(IRPYUD5MRJ))
+  ) +
+    geom_bar() +
+    labs(
+      title = "Cannabis Use Disorder Distribution",
+      x = "CUD Status (0 = No, 1 = Yes)",
+      y = "Number of Respondents"
+    ) +
+    theme_minimal()
+}
+
+# Check ordinary missing values
+missing_summary <- data.frame(
+  Variable = names(cud_data),
+  Missing = colSums(is.na(cud_data)),
+  Missing_Percent = round(
+    colMeans(is.na(cud_data)) * 100,
+    2
+  )
+)
+
+print(missing_summary)
+
+# Inspect category values
+for (v in names(cud_data)) {
+  cat("\nVariable:", v, "\n")
+  print(table(
+    cud_data[[v]],
+    useNA = "ifany"
+  ))
+}
+
+```
+```{r}
+
+library(dplyr)
+
+# Define outcome
+outcome <- "IRPYUD5MRJ"
+
+# Define candidate predictors
+predictors <- c(
+  "CATAG3",
+  "IRSEX",
+  "NEWRACE2",
+  "INCOME",
+  "POVERTY3",
+  "GOVTPROG",
+  "IRINSUR4",
+  "HEALTH",
+  "COUTYP4",
+  "ALCMON",
+  "CIGMON",
+  "IRALCBNG30D",
+  "DIFGETMRJ",
+  "RSKMRJWK",
+  "YEAR",
+  "IRAMDEYR",
+  "YMDEYR"
+)
+
+# Check missing variable names
+setdiff(
+  c(outcome, predictors),
+  names(NSDUH_2021_2024)
+)
+
+# Create updated analysis dataset
+cud_data <- NSDUH_2021_2024 %>%
+  select(any_of(c(outcome, predictors)))
+
+# Verify dimensions
+dim(cud_data)
+
+# View first six rows
+head(cud_data)
+
+```
+
+
+
+```{r}
+
+library(dplyr)
+
+# All candidate predictors from the analysis plan
+candidate_predictors <- c(
+  "CATAG6", "IRSEX", "NEWRACE2",
+  "IRMARIT", "EDUHIGHCAT",
+  "IRWRKSTAT", "INCOME",
+  "POVERTY3", "GOVTPROG",
+  "IRINSUR4", "HEALTH",
+  "COUTYP4", "YEAR",
+  "SPDPSTYR", "ALCYR",
+  "IRPYUD5ALC", "CIGYR",
+  "COCYR", "ILLYR",
+  "IRMJFY", "IRMJAGE",
+  "DIFOBTMRJ"
+)
+
+# Identify variables missing from the dataset
+setdiff(
+  candidate_predictors,
+  names(NSDUH_2021_2024)
+)
+
+# Calculate ordinary missing-value percentages
+available <- intersect(
+  candidate_predictors,
+  names(NSDUH_2021_2024)
+)
+
+missing_summary <- data.frame(
+  Variable = available,
+  Missing_Percent = round(
+    sapply(
+      NSDUH_2021_2024[available],
+      function(x) mean(is.na(x)) * 100
+    ),
+    2
+  )
+)
+
+missing_summary %>%
+  arrange(desc(Missing_Percent))
+
+```
+```{r}
+
+# Check psychological distress missingness by age
+NSDUH_2021_2024 %>%
+  group_by(CATAG6) %>%
+  summarise(
+    Total = n(),
+    Missing = sum(is.na(SPDPSTYR)),
+    Missing_Percent = round(
+      mean(is.na(SPDPSTYR)) * 100, 2
+    ),
+    .groups = "drop"
+  )
+
+```
+
+
+```{r}
+
+NSDUH_2021_2024 <- NSDUH_2021_2024 %>%
+  mutate(
+    MDE_PY = case_when(
+      CATAG6 == 1 & YMDEYR == 1 ~ 1,
+      CATAG6 == 1 & YMDEYR == 2 ~ 0,
+      CATAG6 != 1 & IRAMDEYR == 1 ~ 1,
+      CATAG6 != 1 & IRAMDEYR == 0 ~ 0,
+      TRUE ~ NA_real_
+    )
+  )
+
+# Check distribution and missingness
+table(NSDUH_2021_2024$MDE_PY, useNA = "ifany")
+
+# Check missingness by age group
+NSDUH_2021_2024 %>%
+  group_by(CATAG6) %>%
+  summarise(
+    Total = n(),
+    Missing = sum(is.na(MDE_PY)),
+    Missing_Percent = round(
+      mean(is.na(MDE_PY)) * 100, 2
+    ),
+    .groups = "drop"
+  )
+
+```
+
+
+```{r}
+
+# Remove adult-only psychological distress variable
+candidate_predictors <- setdiff(
+  candidate_predictors,
+  "SPDPSTYR"
+)
+
+# Add combined depression variable
+candidate_predictors <- unique(
+  c(candidate_predictors, "MDE_PY")
+)
+
+# Verify updated predictors
+candidate_predictors
+
+```
+
+
+# we removed a variable missing ages 12 to 17 respondents and combined with a similar variable indicative of depression to fill in that gap. 
+
+
+```{r}
+
+NSDUH_2021_2024 %>%
+  filter(!is.na(MDE_PY)) %>%
+  group_by(MDE_PY) %>%
+  summarise(
+    Total = n(),
+    CUD_Cases = sum(IRPYUD5MRJ == 1),
+    CUD_Percent = round(
+      mean(IRPYUD5MRJ == 1) * 100,
+      2
+    ),
+    .groups = "drop"
+  )
+
+```
+#Initial exploratory analysis revealed an association between past-year major depressive episode (MDE) and cannabis use disorder (CUD). Among respondents with past-year MDE, 19.45% had CUD, compared with 6.95% of respondents without MDE. This suggests that depression may be an important predictor of CUD and warrants further investigation through classification models.
+
+
+
+
+
+```{r}
+
+library(ggplot2)
+
+mde_cud <- NSDUH_2021_2024 %>%
+  filter(!is.na(MDE_PY)) %>%
+  group_by(MDE_PY) %>%
+  summarise(
+    CUD_Percent = mean(IRPYUD5MRJ == 1) * 100,
+    .groups = "drop"
+  ) %>%
+  mutate(
+    MDE_Status = ifelse(
+      MDE_PY == 1, "Past-Year MDE", "No MDE"
+    )
+  )
+
+ggplot(mde_cud,
+       aes(x = MDE_Status, y = CUD_Percent,
+           fill = MDE_Status)) +
+  geom_col(width = 0.6) +
+  geom_text(
+    aes(label = paste0(round(CUD_Percent, 2), "%")),
+    vjust = -0.5
+  ) +
+  labs(
+    title = "Cannabis Use Disorder by Depression Status",
+    x = "Past-Year Major Depressive Episode",
+    y = "Respondents with CUD (%)"
+  ) +
+  ylim(0, 25) +
+  theme_minimal() +
+  theme(legend.position = "none")
+
+```
+
+
+```{r}
+
+NSDUH_2021_2024 %>%
+  filter(!is.na(MDE_PY)) %>%
+  group_by(CATAG6, MDE_PY) %>%
+  summarise(
+    Total = n(),
+    CUD_Cases = sum(IRPYUD5MRJ == 1),
+    CUD_Percent = round(
+      mean(IRPYUD5MRJ == 1) * 100, 2
+    ),
+    .groups = "drop"
+  )
+
+```
+```{r}
+
+library(dplyr)
+
+# Create working dataset using current predictors
+cud_data <- NSDUH_2021_2024 %>%
+  select(IRPYUD5MRJ, all_of(candidate_predictors))
+
+# Check dimensions
+dim(cud_data)
+
+# Check missing-value percentages
+missing_summary <- data.frame(
+  Variable = names(cud_data),
+  Missing_Percent = sapply(
+    cud_data,
+    function(x) round(mean(is.na(x)) * 100, 2)
+  )
+)
+
+missing_summary %>%
+  arrange(desc(Missing_Percent))
+
+# Examine actual category codes in selected variables
+for (v in c(
+  "HEALTH", "IRMARIT", "IRWRKSTAT",
+  "IRMJFY", "IRMJAGE", "DIFOBTMRJ",
+  "MDE_PY"
+)) {
+  cat("\nVariable:", v, "\n")
+  print(table(cud_data[[v]], useNA = "ifany"))
+}
+
+```
+```{r}
+
+
+age_cud <- cud_data %>%
+  group_by(CATAG6) %>%
+  summarise(
+    Total = n(),
+    CUD_Cases = sum(IRPYUD5MRJ == 1, na.rm = TRUE),
+    CUD_Percent = round(
+      mean(IRPYUD5MRJ == 1, na.rm = TRUE) * 100, 2
+    ),
+    .groups = "drop"
+  ) %>%
+  mutate(
+    Age_Group = factor(
+      CATAG6,
+      levels = 1:6,
+      labels = c("12-17", "18-25", "26-34",
+                 "35-49", "50-64", "65+")
+    )
+  )
+
+print(age_cud)
+
+ggplot(age_cud,
+       aes(x = Age_Group, y = CUD_Percent)) +
+  geom_col(fill = "steelblue") +
+  geom_text(
+    aes(label = paste0(CUD_Percent, "%")),
+    vjust = -0.4
+  ) +
+  labs(
+    title = "Cannabis Use Disorder by Age Group",
+    x = "Age Group",
+    y = "Respondents with CUD (%)"
+  ) +
+  expand_limits(y = max(age_cud$CUD_Percent) * 1.15) +
+  theme_minimal()
+
+```
+```{r}
+
+# Examine special codes and category distributions
+
+variables_to_check <- c(
+  "IRMARIT",
+  "EDUHIGHCAT",
+  "IRWRKSTAT",
+  "INCOME",
+  "HEALTH",
+  "IRINSUR4",
+  "IRMJFY",
+  "IRMJAGE",
+  "DIFOBTMRJ",
+  "MDE_PY"
+)
+
+for (v in variables_to_check) {
+  cat("\n------------------\n")
+  cat("Variable:", v, "\n")
+
+  print(
+    table(cud_data[[v]], useNA = "ifany")
+  )
+}
+
+```
+
+
+```{r}
+
+library(dplyr)
+
+cud_clean <- cud_data %>%
+  mutate(
+    # Outcome as a classification factor
+    CUD = factor(
+      IRPYUD5MRJ,
+      levels = c(0, 1),
+      labels = c("No", "Yes")
+    ),
+
+    # Nonresponses for overall health
+    HEALTH = ifelse(
+      HEALTH %in% c(94, 97),
+      NA_real_,
+      HEALTH
+    ),
+
+    # Marital status: 99 is an age-related skip
+    IRMARIT = factor(
+      IRMARIT,
+      levels = c(1, 2, 3, 4, 99),
+      labels = c(
+        "Married",
+        "Widowed",
+        "Divorced/Separated",
+        "Never Married",
+        "Not Applicable"
+      )
+    ),
+
+    # Employment: 99 is an age-related skip
+    IRWRKSTAT = factor(
+      IRWRKSTAT,
+      levels = c(1, 2, 3, 4, 99),
+      labels = c(
+        "Full Time",
+        "Part Time",
+        "Unemployed",
+        "Other",
+        "Not Applicable"
+      )
+    ),
+
+    # Education
+    EDUHIGHCAT = factor(EDUHIGHCAT),
+
+    # Income
+    INCOME = factor(INCOME),
+
+    # Insurance status
+    IRINSUR4 = factor(IRINSUR4),
+
+    # Age categories
+    CATAG6 = factor(CATAG6)
+  )
+
+# Confirm outcome distribution
+table(cud_clean$CUD)
+
+# Check cleaned health variable
+table(cud_clean$HEALTH, useNA = "ifany")
+
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+
+```{r}
+
+# Check remaining predictor codes
+
+remaining_vars <- c(
+  "NEWRACE2",
+  "GOVTPROG",
+  "POVERTY3",
+  "COUTYP4",
+  "ALCYR",
+  "IRPYUD5ALC",
+  "CIGYR",
+  "COCYR"
+)
+
+for (v in remaining_vars) {
+  cat("\n------------------\n")
+  cat("Variable:", v, "\n")
+
+  print(table(cud_data[[v]], useNA = "ifany"))
+}
+
+```
+```{r}
+
+cud_clean <- cud_clean %>%
+  mutate(
+    HEALTH = case_when(
+      HEALTH %in% 1:5 ~ as.numeric(HEALTH),
+      TRUE ~ NA_real_
+    ),
+    HEALTH = factor(HEALTH)
+  )
+
+# Verify the cleaning
+table(cud_clean$HEALTH, useNA = "ifany")
+
+```
+```{r}
+
+
+cud_clean <- cud_clean %>%
+  mutate(
+    NEWRACE2 = factor(NEWRACE2),
+    GOVTPROG = factor(GOVTPROG),
+    POVERTY3 = factor(POVERTY3),
+    COUTYP4 = factor(COUTYP4),
+    ALCYR = factor(ALCYR),
+    IRPYUD5ALC = factor(IRPYUD5ALC),
+    CIGYR = factor(CIGYR),
+    COCYR = factor(COCYR)
+  )
+
+# Check the variables
+str(cud_clean)
+
+# Confirm missing values
+colSums(is.na(cud_clean))
+
+```
+
+```{r}
+
+alcohol_cud <- cud_clean %>%
+  group_by(IRPYUD5ALC) %>%
+  summarise(
+    Total = n(),
+    CUD_Cases = sum(CUD == "Yes"),
+    CUD_Percent = round(mean(CUD == "Yes") * 100, 2),
+    .groups = "drop"
+  )
+
+print(alcohol_cud)
+
+ggplot(alcohol_cud,
+       aes(x = IRPYUD5ALC, y = CUD_Percent)) +
+  geom_col(fill = "steelblue") +
+  geom_text(
+    aes(label = paste0(CUD_Percent, "%")),
+    vjust = -0.4
+  ) +
+  labs(
+    title = "Cannabis Use Disorder by Alcohol Use Disorder",
+    x = "Past-Year Alcohol Use Disorder (0 = No, 1 = Yes)",
+    y = "CUD Prevalence (%)"
+  ) +
+  theme_minimal()
+
+```
+```{r}
+
+income_cud <- cud_clean %>%
+  group_by(INCOME) %>%
+  summarise(
+    Total = n(),
+    CUD_Cases = sum(CUD == "Yes"),
+    CUD_Percent = round(mean(CUD == "Yes") * 100, 2),
+    .groups = "drop"
+  )
+
+print(income_cud)
+
+```
+```{r}
+
+ggplot(income_cud,
+       aes(x = INCOME, y = CUD_Percent)) +
+  geom_col(fill = "steelblue") +
+  geom_text(
+    aes(label = paste0(CUD_Percent, "%")),
+    vjust = -0.4
+  ) +
+  scale_x_discrete(
+    labels = c(
+      "1" = "<$20k",
+      "2" = "$20k–49k",
+      "3" = "$50k–74k",
+      "4" = "$75k+"
+    )
+  ) +
+  labs(
+    title = "Cannabis Use Disorder by Family Income",
+    x = "Annual Family Income",
+    y = "CUD Prevalence (%)"
+  ) +
+  expand_limits(y = max(income_cud$CUD_Percent) * 1.15) +
+  theme_minimal()
+
+```
+
+```{r}
+
+# CUD prevalence by poverty level
+
+poverty_cud <- cud_clean %>%
+  group_by(POVERTY3) %>%
+  summarise(
+    Total = n(),
+    CUD_Cases = sum(CUD == "Yes"),
+    CUD_Percent = round(
+      mean(CUD == "Yes") * 100, 2
+    ),
+    .groups = "drop"
+  )
+
+print(poverty_cud)
+
+```
+```{r}
+
+ggplot(
+  poverty_cud %>% filter(!is.na(POVERTY3)),
+  aes(x = POVERTY3, y = CUD_Percent)
+) +
+  geom_col(fill = "steelblue") +
+  geom_text(
+    aes(label = paste0(CUD_Percent, "%")),
+    vjust = -0.4
+  ) +
+  scale_x_discrete(
+    labels = c(
+      "1" = "Below Poverty",
+      "2" = "Up to 2x Poverty",
+      "3" = "Above 2x Poverty"
+    )
+  ) +
+  labs(
+    title = "Cannabis Use Disorder by Poverty Level",
+    x = "Poverty Level",
+    y = "CUD Prevalence (%)"
+  ) +
+  expand_limits(
+    y = max(poverty_cud$CUD_Percent, na.rm = TRUE) * 1.15
+  ) +
+  theme_minimal()
+
+```
+
+```{r}
+
+# Chi-square tests for categorical predictors
+
+variables <- c(
+  "CATAG6",
+  "MDE_PY",
+  "IRPYUD5ALC",
+  "INCOME",
+  "POVERTY3"
+)
+
+chi_results <- lapply(variables, function(v) {
+
+  tab <- table(cud_clean[[v]], cud_clean$CUD)
+
+  test <- chisq.test(tab)
+
+  data.frame(
+    Variable = v,
+    Chi_Square = round(as.numeric(test$statistic), 2),
+    P_Value = test$p.value
+  )
+})
+
+chi_results <- do.call(rbind, chi_results)
+
+print(chi_results)
+
+```
+```{r}
+
+# Calculate Cramer's V for each predictor
+
+cramers_results <- lapply(variables, function(v) {
+
+  tab <- table(cud_clean[[v]], cud_clean$CUD)
+
+  n <- sum(tab)
+  chi <- suppressWarnings(chisq.test(tab)$statistic)
+
+  cramers_v <- sqrt(
+    as.numeric(chi) /
+      (n * (min(dim(tab)) - 1))
+  )
+
+  data.frame(
+    Variable = v,
+    Cramers_V = round(cramers_v, 4)
+  )
+})
+
+cramers_results <- do.call(rbind, cramers_results)
+
+print(cramers_results)
+
+```
+
+```{r}
+
+
+# Select categorical predictors for comparison
+predictors <- c(
+  "CATAG6",
+  "IRSEX",
+  "NEWRACE2",
+  "IRMARIT",
+  "EDUHIGHCAT",
+  "IRWRKSTAT",
+  "INCOME",
+  "POVERTY3",
+  "GOVTPROG",
+  "HEALTH",
+  "IRINSUR4",
+  "COUTYP4",
+  "MDE_PY",
+  "ALCYR",
+  "IRPYUD5ALC",
+  "CIGYR",
+  "COCYR"
+)
+
+# Calculate chi-square and Cramer's V
+association_results <- lapply(predictors, function(v) {
+
+  tab <- table(cud_clean[[v]], cud_clean$CUD)
+
+  test <- suppressWarnings(chisq.test(tab))
+
+  n <- sum(tab)
+
+  cramers_v <- sqrt(
+    as.numeric(test$statistic) /
+      (n * (min(dim(tab)) - 1))
+  )
+
+  data.frame(
+    Variable = v,
+    Chi_Square = round(as.numeric(test$statistic), 2),
+    P_Value = test$p.value,
+    Cramers_V = round(cramers_v, 4)
+  )
+})
+
+association_results <- bind_rows(association_results) %>%
+  arrange(desc(Cramers_V))
+
+print(association_results)
+
+```
+```{r}
+
+ggplot(
+  association_results,
+  aes(
+    x = reorder(Variable, Cramers_V),
+    y = Cramers_V
+  )
+) +
+  geom_col(fill = "steelblue") +
+  coord_flip() +
+  labs(
+    title = "Association Strength Between Predictors and CUD",
+    subtitle = "Cramer's V - NSDUH 2021-2024",
+    x = "Predictor Variable",
+    y = "Cramer's V"
+  ) +
+  theme_minimal()
+
+```
+```{r}
+
+geographic_cud <- cud_clean %>%
+  group_by(COUTYP4) %>%
+  summarise(
+    Total = n(),
+    CUD_Cases = sum(CUD == "Yes"),
+    CUD_Percent = round(
+      mean(CUD == "Yes") * 100, 2
+    ),
+    .groups = "drop"
+  )
+
+print(geographic_cud)
+
+```
+
+```{r}
+
+```
+
