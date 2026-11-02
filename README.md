@@ -65,41 +65,161 @@ I am particularly interested in using data to solve real-world problems, identif
 
 ---
 
+
+
 ## Projects
 
-### 1. Cannabis Use Disorder Prediction — Data Science Capstone
+This portfolio showcases selected academic projects in data science, business analytics, machine learning, statistical modeling, and Geographic Information Systems (GIS). These projects demonstrate my experience working with real-world datasets, applying analytical techniques, and communicating findings through data visualization.
 
-**Technologies:** R, RStudio, Statistical Analysis, Machine Learning
+<table>
 
-**Status:** In Progress
+<tr>
+<td width="260" valign="top">
+<a href="cud-capstone-draft.Rmd">
+<img src="cud-capstone.png" width="240" alt="Cannabis Use Disorder Prediction">
+</a>
+</td>
+<td valign="top">
+<h3><a href="cud-capstone-draft.Rmd">Cannabis Use Disorder Prediction — Data Science Capstone</a></h3>
+<b>Technologies:</b> R, RStudio, Statistical Analysis, Machine Learning
+<br><br>
+<b>Status:</b> In Progress
+<br><br>
+Analyzing 232,441 survey responses from the 2021–2024 National Survey on Drug Use and Health (NSDUH) to investigate demographic, socioeconomic, mental-health, and substance-use predictors of Cannabis Use Disorder (CUD) and Major Depressive Episode (MDE).
+<br><br>
+Conducted exploratory data analysis, chi-square testing, and Cramér's V association analysis. Predictive modeling includes planned comparisons of logistic regression, decision trees, and random forests.
+<br><br>
+<a href="cud-capstone-draft.Rmd">View R Analysis Draft</a>
+</td>
+</tr>
 
-This capstone project investigates demographic, socioeconomic, mental health, and substance-use predictors of Cannabis Use Disorder (CUD) using 232,441 survey responses from the combined 2021–2024 National Survey on Drug Use and Health (NSDUH).
+<tr>
+<td width="260" valign="top">
+<a href="customer-segmentation.md">
+<img src="customer-segmentation.png" width="240" alt="Customer Segmentation Analysis">
+</a>
+</td>
+<td valign="top">
+<h3><a href="customer-segmentation.md">Customer Shopping Behavior and Segmentation</a></h3>
+<b>Technologies:</b> R, RStudio, ggplot2, K-Means, Hierarchical Clustering, DBSCAN
+<br><br>
+Analyzed a dataset containing 3,900 customer records and 16 variables to explore purchasing behavior and identify meaningful customer segments.
+<br><br>
+Performed data cleaning, exploratory analysis, min-max normalization, and clustering using multiple unsupervised machine learning techniques.
+<br><br>
+A four-cluster K-Means analysis identified differences in spending behavior, including clusters with average purchase amounts of approximately $81.80 and $37.80.
+<br><br>
+<a href="customer-segmentation.md">View Project Details</a>
+</td>
+</tr>
 
-The analysis includes cleaning and preprocessing survey data, examining CUD prevalence across demographic groups, and applying chi-square tests and Cramér's V to identify statistical associations.
+<tr>
+<td width="260" valign="top">
+<a href="netflix-association.md">
+<img src="netflix-association.png" width="240" alt="Netflix Genre Association Analysis">
+</a>
+</td>
+<td valign="top">
+<h3><a href="netflix-association.md">Netflix Genre Association Analysis</a></h3>
+<b>Technologies:</b> R, RStudio, Apriori Algorithm, Association Rule Mining
+<br><br>
+Analyzed 8,807 Netflix titles to investigate relationships between genres using the Apriori algorithm and association rule mining.
+<br><br>
+Evaluated relationships using support, confidence, and lift to identify patterns in Netflix's content catalog.
+<br><br>
+A notable finding was the strong association between International Korean TV Shows and Romantic TV Shows, with a lift of approximately 12.1. The results suggest opportunities for more targeted content categorization.
+<br><br>
+<a href="netflix-association.md">View Project Details</a>
+</td>
+</tr>
 
-The project also investigates Major Depressive Episode (MDE) as a related outcome, with plans to compare predictive factors across both conditions.
+<tr>
+<td width="260" valign="top">
+<a href="Seattle_Rain_Homework3.ipynb">
+<img src="seattle-rainfall.png" width="240" alt="Seattle Rainfall Prediction">
+</a>
+</td>
+<td valign="top">
+<h3><a href="Seattle_Rain_Homework3.ipynb">Seattle Rainfall Prediction Using Machine Learning</a></h3>
+<b>Technologies:</b> Python, Pandas, scikit-learn, Matplotlib
+<br><br>
+Developed and evaluated machine learning models to predict rainfall using historical Seattle weather observations.
+<br><br>
+Compared Bagging and Random Forest classifiers, evaluated hyperparameter combinations using Out-of-Bag (OOB) accuracy, and assessed performance using a chronological train/test split.
+<br><br>
+The weather-informed Random Forest achieved 78.6% test accuracy, outperforming the calendar-only model, which achieved 58.1%.
+<br><br>
+<a href="Seattle_Rain_Homework3.ipynb">View Python Notebook and Results</a>
+</td>
+</tr>
 
-**Key Methods:**
-- Data cleaning and preprocessing
-- Exploratory data analysis
-- Chi-square tests and Cramér's V
-- Logistic regression
-- Decision trees
-- Random Forest classification
-- Classification model evaluation
+<tr>
+<td width="260" valign="top">
+<a href="quantum-directed-study.md">
+<img src="quantum-molecular.png" width="240" alt="Quantum Machine Learning Research">
+</a>
+</td>
+<td valign="top">
+<h3><a href="quantum-directed-study.md">Quantum Machine Learning for Molecular Property Prediction</a></h3>
+<b>Directed Study:</b> Dr. Don Roosan
+<br>
+<b>Technologies:</b> Python, Google Colab, Graph Neural Networks, QM9
+<br><br>
+Conducted independent research investigating classical Graph Neural Networks (GNNs), hybrid quantum-classical models, and DimeNet for predicting HOMO-LUMO molecular energy gaps.
+<br><br>
+Trained a classical GNN on the QM9 molecular dataset for 20 epochs, achieving a validation Mean Squared Error (MSE) of 0.2981.
+<br><br>
+Also explored a hybrid quantum-classical tutorial model, which reached a training MSE of 0.2924 after 10 epochs. Investigated DimeNet for its ability to incorporate molecular geometry into predictive modeling.
+<br><br>
+<b>Status:</b> DimeNet implementation remained in development.
+<br><br>
+<a href="quantum-directed-study.md">View Research Summary</a>
+</td>
+</tr>
 
-**Project Goal:** Identify important predictors of CUD and MDE and evaluate the usefulness of machine learning methods for analyzing large-scale public health survey data.
+<tr>
+<td width="260" valign="top">
+<a href="movie-analysis.md">
+<img src="movie-analysis.png" width="240" alt="Movie Performance Analysis">
+</a>
+</td>
+<td valign="top">
+<h3><a href="movie-analysis.md">Movie Performance Analysis</a></h3>
+<b>Technologies:</b> Python, Data Cleaning, Exploratory Data Analysis, Data Visualization
+<br><br>
+Analyzed more than 85,000 movie records to investigate relationships between production budgets, box office revenue, genres, runtimes, and audience engagement.
+<br><br>
+Performed data cleaning and exploratory analysis, creating scatter plots, bar charts, and boxplots to identify patterns in movie performance across approximately 25 years.
+<br><br>
+The project examined how movie characteristics relate to financial performance and demonstrated the use of visual analytics to communicate findings.
+<br><br>
+<a href="movie-analysis.md">View Project Details</a>
+</td>
+</tr>
 
----
-| Project preview | Analysis and project links |
-| :--- | :--- |
-| <a href="projects/cud-capstone.md"><img src="images/cud-capstone.png" width="290" alt="Cannabis Use Disorder Prediction — Capstone preview"></a> | **[Cannabis Use Disorder Prediction — Capstone](projects/cud-capstone.md)**<br>**R · RStudio · NSDUH · Statistical Analysis**<br>Analyzing 232,441 NSDUH records to study cannabis use disorder and major depressive episodes; chi-square tests and Cramér’s V are part of the exploratory work. Classification modeling is in progress.<br><br>[R analysis draft](projects/cud-capstone-draft.Rmd) |
-| <a href="projects/customer-segmentation.md"><img src="images/customer-segmentation.png" width="290" alt="Customer Shopping Behavior & Segmentation preview"></a> | **[Customer Shopping Behavior & Segmentation](projects/customer-segmentation.md)**<br>**R · K-Means · Hierarchical Clustering · DBSCAN**<br>Explored 3,900 customer records and compared clustering techniques. A four-cluster K-Means analysis showed different purchasing patterns, including average spending of $81.80 versus $37.80.<br><br>[Project summary](projects/customer-segmentation.md) |
-| <a href="projects/netflix-association.md"><img src="images/netflix-association.png" width="290" alt="Netflix Genre Association Analysis preview"></a> | **[Netflix Genre Association Analysis](projects/netflix-association.md)**<br>**R · Apriori · Association Rules**<br>Analyzed 8,807 Netflix titles using support, confidence, and lift to uncover genre associations. Korean TV and romantic TV show labels showed a strong association (lift ~12.1).<br><br>[Project summary](projects/netflix-association.md) |
-| <a href="projects/seattle-rainfall.md"><img src="images/seattle-rainfall.png" width="290" alt="Seattle Rainfall Prediction preview"></a> | **[Seattle Rainfall Prediction](projects/seattle-rainfall.md)**<br>**Python · scikit-learn · Bagging · Random Forest**<br>Compared ensemble classifiers using out-of-bag hyperparameter tuning and a held-out 2015 test set. Random Forest reached 78.6% test accuracy.<br><br>[Open notebook](projects/seattle-rainfall.ipynb) |
-| <a href="projects/quantum-directed-study.md"><img src="images/quantum-molecular.png" width="290" alt="Molecular Gap Prediction — Directed Study preview"></a> | **[Molecular Gap Prediction — Directed Study](projects/quantum-directed-study.md)**<br>**Python · QM9 · GNNs · Quantum-Classical Models**<br>Trained a classical GNN for HOMO–LUMO gap prediction (validation MSE 0.2981), tested a hybrid tutorial, and explored DimeNet. DimeNet development was still underway.<br><br>[Research summary](projects/quantum-directed-study.md) |
-| <a href="projects/movie-analysis.md"><img src="images/movie-analysis.png" width="290" alt="Movie Performance Analysis preview"></a> | **[Movie Performance Analysis](projects/movie-analysis.md)**<br>**Python · EDA · Data Visualization**<br>Explored 85,000+ movie records to investigate budget, revenue, genre, runtime, and audience-engagement patterns over approximately 25 years.<br><br>[Project summary](projects/movie-analysis.md) |
-| <a href="projects/amazon-gis.md"><img src="images/amazon-gis.png" width="290" alt="Amazon Conservation GIS Module preview"></a> | **[Amazon Conservation GIS Module](projects/amazon-gis.md)**<br>**ArcGIS Online · GIS · Spatial Analysis**<br>Designed an instructional activity exploring Indigenous territories and protected areas, with proposed buffer and intersect analyses. Map analysis is in progress.<br><br>[Module description](projects/amazon-gis.md) |
+<tr>
+<td width="260" valign="top">
+<img src="amazon-gis.png" width="240" alt="Amazon Rainforest GIS Conservation Project">
+</td>
+<td valign="top">
+<h3>Amazon Rainforest Conservation GIS Module</h3>
+<b>Technologies:</b> ArcGIS Online, Geographic Information Systems, Spatial Analysis
+<br><br>
+<b>Status:</b> In Progress
+<br><br>
+Designed an educational GIS module exploring spatial relationships between Indigenous territories and protected conservation areas throughout the Amazon rainforest.
+<br><br>
+The activity uses satellite imagery, geographic feature layers, and planned buffer and intersect analyses to explore conservation boundaries and spatial proximity.
+<br><br>
+The objective is to demonstrate how geographic analysis can support environmental research and the protection of Indigenous territories.
+<br><br>
+<i>ArcGIS map and final analysis link to be added upon completion.</i>
+</td>
+</tr>
+
+</table>
+
+*Project images illustrate analytical results or research topics. Projects still in development are identified as in progress.*
 
 
 
