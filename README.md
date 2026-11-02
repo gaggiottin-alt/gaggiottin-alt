@@ -200,7 +200,9 @@ The project examined how movie characteristics relate to financial performance a
 
 <tr>
 <td width="260" valign="top">
+<a href="amazon-gis.png">
 <img src="amazon-gis.png" width="240" alt="Amazon Rainforest GIS Conservation Project">
+</a>
 </td>
 <td valign="top">
 <h3>Amazon Rainforest Conservation GIS Module</h3>
@@ -217,7 +219,6 @@ The objective is to demonstrate how geographic analysis can support environmenta
 <i>ArcGIS map and final analysis link to be added upon completion.</i>
 </td>
 </tr>
-
 </table>
 
 *Project images illustrate analytical results or research topics. Projects still in development are identified as in progress.*
